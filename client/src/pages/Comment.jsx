@@ -55,7 +55,7 @@ const Comment = ({ postId, onClose }) => {
             <div key={c._id} className=" pb-1">
               <div className="flex gap-3">
                 <img src={c.author.avatar || "/default-avatar.png"} alt="Author logo" className="w-8 h-8 rounded-full object-cover"/>
-                <p className="font-semibold">{c.author.username}</p>
+                <p className="font-semibold">{authUser?.username === c.author.username ? "You" : c.author.username}</p>
               </div>
               <p className="text-sm pl-12">{c.text}</p>
             </div>

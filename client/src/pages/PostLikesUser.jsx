@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserInfo } from "@/context/AuthContext";
 
 const PostLikesUser = ({ postId, onClose }) => {
-  const { BgColor, TxtColor,BorDerColor,loading ,setLoading } = useContext(UserInfo);
+  const { authUser, BgColor, TxtColor,BorDerColor,loading ,setLoading } = useContext(UserInfo);
   const [users, setUsers] = useState([]);
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -37,7 +37,7 @@ const PostLikesUser = ({ postId, onClose }) => {
           {users.map((u) => (
             <div key={u._id} className="flex items-center gap-3 py-1">
               <img src={u.avatar || "/default-avatar.png"} alt={u.username} className="w-8 h-8 rounded-full object-cover"/>
-              <p>{u.username}</p>
+              <p>{authUser?.username === u.username ? "You" : u.username}</p>
             </div>
           ))}
         </div>
