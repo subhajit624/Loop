@@ -4,6 +4,6 @@ import { follow } from '../controllers/followControllers.js';
 
 const router = express.Router();
 
-router.post('/:id',protectedRoutes , follow);
+router.post('/:anotherUserId',protectedRoutes , follow);
 
 export default router;

@@ -175,10 +175,16 @@ export const getAllVideosOfRandomUsers = async (req, res) => {
     if(totalPosts === 0){
       return res.status(404).json({ message: "No videos found yet" });
     }
-    const posts = await Post.aggregate([
+    let posts = await Post.aggregate([
       { $match: { "media.type": "video" } }, 
       { $sample: { size: totalPosts } }     
     ]);
+
+    posts = await User.populate(posts, {
+      path: "author",
+      select: "_id username avatar",
+    });
+
     const paginatedPosts = posts.slice(skip, skip + limit);
     res.status(200).json({
       message: "Videos fetched successfully",

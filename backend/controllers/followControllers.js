@@ -3,7 +3,7 @@ import { Notification } from "../models/notificationModels.js";
 
 export const follow = async (req, res) => {
   try {
-    const anotherUserId = req.params.id;
+    const { anotherUserId } = req.params;
     const loggedUserId = req.user._id;
     if (anotherUserId === loggedUserId.toString()) {
       return res.status(400).json({ message: "You cannot follow yourself" });
