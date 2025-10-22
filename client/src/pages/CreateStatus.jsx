@@ -134,8 +134,7 @@ const CreateStatus = () => {
         <button
           onClick={handleUpload}
           disabled={uploading}
-          className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl transition-all disabled:opacity-50 flex justify-center items-center gap-2 cursor-pointer"
-        >
+          className={`mt-4 w-full ${BgColor} ${TxtColor} ${BorDerColor} border-2  py-3 rounded-xl transition-all disabled:opacity-50 flex justify-center items-center gap-2 cursor-pointer`}>
           {uploading ? "Uploading..." : <><UploadCloud size={20} /> Upload</>}
         </button>
       </div>
