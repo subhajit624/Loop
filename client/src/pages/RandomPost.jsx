@@ -242,7 +242,7 @@ const RandomPost = () => {
               {authUser && authUser._id !== post.author._id && (
                 <button
                   onClick={() => handleFollow(post.author._id)}
-                  className={`text-xs font-semibold px-3 py-1 rounded-full border transition ${
+                  className={`text-xs font-semibold px-3 py-1 rounded-full border transition cursor-pointer ${
                     followingList.includes(post.author._id)
                       ? "bg-blue-500 text-white border-blue-500"
                       : "border-blue-400 text-blue-400"
@@ -297,7 +297,7 @@ const RandomPost = () => {
                 <p className="text-sm font-semibold mb-2">{post.caption}</p>
                 <div className="flex items-center justify-between text-xl">
                   <div className="flex items-center gap-4">
-                    <button onClick={() => handleLike(post._id)}>
+                    <button onClick={() => handleLike(post._id)} className="cursor-pointer">
                       {post.likes.includes(authUser?._id) ||
                       likedPosts.includes(post._id) ? (
                         <FaHeart className="text-red-500" />
@@ -326,7 +326,7 @@ const RandomPost = () => {
                     </span>
                   </div>
 
-                  <button onClick={() => handleSave(post._id)}>
+                  <button onClick={() => handleSave(post._id)} className="cursor-pointer">
                     {savedPosts.includes(post._id) ? (
                       <FaBookmark className="text-blue-400" />
                     ) : (
