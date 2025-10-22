@@ -205,7 +205,7 @@ const Reels = () => {
 
   return (
     <div
-      className={`${BgColor} ${TxtColor} min-h-screen flex flex-col items-center py-4`}
+      className={`${BgColor} ${TxtColor} min-h-screen flex flex-col items-center pt-8`}
     >
       <div className="w-full max-w-2xl px-3 snap-y snap-mandatory overflow-y-scroll h-screen scrollbar-hide">
         {videos.length === 0 && !loading && (

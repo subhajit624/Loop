@@ -37,7 +37,7 @@ const HomeLayOut = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen pb-24 ${BgColor}`}>
+    <div className={`relative min-h-screen ${BgColor}`}>
       {/* Page Content */}
       <div>
         <Outlet />
