@@ -10,8 +10,8 @@ import {
 } from "react-icons/fa6";
 
 const Notification = () => {
-  const { BgColor, TxtColor, BorDerColor, authUser, setLoading } =
-    useContext(UserInfo);
+  const { BgColor, TxtColor, BorDerColor, authUser } = useContext(UserInfo);
+  const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
@@ -94,6 +94,14 @@ const Notification = () => {
         : n.type === "comment"
         ? "commented on your post"
         : "started following you";
+
+        if(loading){
+            return (
+          <div className={`flex justify-center items-center ${BgColor} ${TxtColor} h-30`}>
+            <p>Loading...</p>
+          </div>
+         );
+        }
 
     return (
       <div
