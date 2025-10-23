@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import MagicLoader from "./components/lightswind/magic-loader"
 import { Routes, Route, Navigate } from "react-router-dom";
 import { UserInfo } from './context/AuthContext'
 import HomeLayOut from './pages/HomeLayOut';
@@ -25,10 +24,25 @@ function App() {
    const { authUser, loading, setLoading, BgColor ,TxtColor} = useContext(UserInfo);
 
    if(loading){
-    <div className={`${BgColor} ${TxtColor}`}>
-        <MagicLoader size={150} particleCount={1} speed={0.7} className="md:hidden"/>
+  const [showWait, setShowWait] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowWait(prev => !prev);
+    }, 2000); 
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className={`${BgColor} ${TxtColor} h-screen flex flex-col items-center justify-center`}>
+      {/* White spinner */}
+      <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+      <p className="text-lg animate-pulse">
+        {showWait ? "It may take 40-50 sec to load..." : "Loading..."}
+      </p>
     </div>
-   }
+  );
+}
+ 
 
   return (
     <div >

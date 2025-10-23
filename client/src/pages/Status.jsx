@@ -6,7 +6,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const Status = () => {
-  const { BgColor, TxtColor, BorDerColor, authUser, loading, setLoading } = useContext(UserInfo);
+  const { BgColor, TxtColor, BorDerColor, authUser} = useContext(UserInfo);
+  const {loading, setLoading} = useState(false);
   const [getStatus, setGetStatus] = useState([]);
   const navigate = useNavigate();
 
