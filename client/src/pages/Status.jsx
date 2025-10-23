@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Status = () => {
   const { BgColor, TxtColor, BorDerColor, authUser} = useContext(UserInfo);
-  const {loading, setLoading} = useState(false);
+  const [loading, setLoading] = useState(false);
   const [getStatus, setGetStatus] = useState([]);
   const navigate = useNavigate();
 
@@ -30,14 +30,6 @@ const Status = () => {
     getAllStatuses();
   }, []);
 
-  if (loading) {
-    return (
-      <div className={`flex justify-center items-center ${BgColor} ${TxtColor} h-30`}>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   const handleAddStatusClick = () => {
     if (!authUser) {
       toast.error("Login to give a status");
@@ -46,6 +38,15 @@ const Status = () => {
       navigate("/status/upload");
     }
   };
+
+  if (loading) {
+    return (
+      <div className={`flex justify-center items-center ${BgColor} ${TxtColor} h-30`}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
 
   return (
     <div className={`flex justify-center ${BgColor}`}>

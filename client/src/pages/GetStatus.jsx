@@ -7,7 +7,8 @@ import { UserInfo } from "@/context/AuthContext";
 const GetStatus = () => {
   const { statusId } = useParams();
   const navigate = useNavigate();
-  const { BgColor, TxtColor, setLoading, loading } = useContext(UserInfo);
+  const { BgColor, TxtColor } = useContext(UserInfo);
+  const [loading, setLoading] = useState(false);
   const [statusDetails, setStatusDetails] = useState({});
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef(null);
@@ -32,7 +33,7 @@ const GetStatus = () => {
 
   const { media, text, user } = statusDetails;
 
-  // Progress bar for image status (12s)
+  // ⏳ Progress bar for image (12 seconds)
   useEffect(() => {
     if (!media) return;
     if (media.type === "image") {
@@ -54,7 +55,9 @@ const GetStatus = () => {
 
   if (loading)
     return (
-      <div className={`flex items-center justify-center min-h-screen text-lg ${BgColor} ${TxtColor}`}>
+      <div
+        className={`flex items-center justify-center min-h-screen text-lg ${BgColor} ${TxtColor}`}
+      >
         Loading...
       </div>
     );
@@ -70,7 +73,7 @@ const GetStatus = () => {
     <div
       className={`relative flex items-center justify-center min-h-screen w-full overflow-hidden ${BgColor} ${TxtColor}`}
     >
-      {/* Background blur */}
+      {/* 🔹 Background blur */}
       <div
         className="absolute inset-0 blur-xl brightness-50"
         style={{
@@ -80,7 +83,7 @@ const GetStatus = () => {
         }}
       ></div>
 
-      {/* Progress bar */}
+      {/* 🔹 Progress bar */}
       <div className="absolute top-4 left-0 w-full px-4 z-20">
         <div className="w-full h-1 bg-white/40 rounded-full">
           <div
@@ -90,7 +93,7 @@ const GetStatus = () => {
         </div>
       </div>
 
-      {/* User info */}
+      {/* 🔹 User info */}
       <div className="absolute top-10 left-4 z-20 flex items-center gap-3">
         <img
           src={user?.avatar}
@@ -102,7 +105,7 @@ const GetStatus = () => {
         </p>
       </div>
 
-      {/* Close button */}
+      {/* 🔹 Close button */}
       <button
         onClick={() => navigate("/")}
         className="absolute top-4 right-4 z-20 text-white text-2xl font-bold"
@@ -110,13 +113,13 @@ const GetStatus = () => {
         &times;
       </button>
 
-      {/* Media */}
-      <div className="relative z-10 w-full h-[80vh] md:h-screen flex items-center justify-center">
+      {/* 🔹 Media content */}
+      <div className="relative z-10 w-full h-[80vh] md:h-screen flex items-center justify-center bg-black">
         {media.type === "image" ? (
           <img
             src={media.url}
             alt="status"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain md:object-cover"
           />
         ) : (
           <video
@@ -124,11 +127,11 @@ const GetStatus = () => {
             autoPlay
             playsInline
             onEnded={handleVideoEnd}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain md:object-cover"
           />
         )}
 
-        {/* Overlay text */}
+        {/* 🔹 Overlay text */}
         {text && (
           <div className="absolute bottom-10 w-full flex justify-center">
             <p className="text-white text-lg sm:text-xl font-semibold bg-black/40 px-4 py-2 rounded-2xl max-w-[80%] text-center">
