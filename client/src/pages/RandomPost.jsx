@@ -292,7 +292,7 @@ const RandomPost = () => {
               )}
             </div>
 
-            {post.caption && (
+            {post.caption ? (
               <div className="p-3">
                 <p className="text-sm font-semibold mb-2">{post.caption}</p>
                 <div className="flex items-center justify-between text-xl">
@@ -335,7 +335,50 @@ const RandomPost = () => {
                   </button>
                 </div>
               </div>
-            )}
+            ) : (
+              <div className="p-3">
+                <div className="flex items-center justify-between text-xl">
+                  <div className="flex items-center gap-4">
+                    <button onClick={() => handleLike(post._id)} className="cursor-pointer">
+                      {post.likes.includes(authUser?._id) ||
+                      likedPosts.includes(post._id) ? (
+                        <FaHeart className="text-red-500" />
+                      ) : (
+                        <FaRegHeart />
+                      )}
+                    </button>
+                    <span
+                      className="text-sm cursor-pointer"
+                      onClick={() => setOpenLikePostId(post._id)}
+                    >
+                      {post.likes.length}
+                    </span>
+
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => setOpenCommentPostId(post._id)}
+                    >
+                      <FaRegComment />
+                    </button>
+                    <span
+                      className="text-sm cursor-pointer"
+                      onClick={() => setOpenCommentPostId(post._id)}
+                    >
+                      {post.comments.length}
+                    </span>
+                  </div>
+
+                  <button onClick={() => handleSave(post._id)} className="cursor-pointer">
+                    {savedPosts.includes(post._id) ? (
+                      <FaBookmark className="text-blue-400" />
+                    ) : (
+                      <FaRegBookmark />
+                    )}
+                  </button>
+                </div>
+              </div>
+            )
+            }
           </div>
         ))}
 
