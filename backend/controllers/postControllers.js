@@ -76,7 +76,7 @@ export const createPostVideo = async (req, res) => {
 export const getPostImages = async (req, res) => {
   try {
       const { postId } = req.params;
-      const post = await Post.findOne({_id: postId, "media.type": "image" });
+      const post = await Post.findOne({_id: postId, "media.type": "image" }).populate("author", "_id username avatar");
       if(!post){
         return res.status(404).json({ message: "Post not found or no image available" });
       }
@@ -95,7 +95,7 @@ export const getPostImages = async (req, res) => {
 export const getPostVideo = async (req, res) => {
   try {
     const { postId } = req.params;
-    const post = await Post.findOne({_id: postId, "media.type": "video" });
+    const post = await Post.findOne({_id: postId, "media.type": "video" }).populate("author", "_id username avatar");
     if(!post){
       return res.status(404).json({ message: "Post not found or no video available" });
     }

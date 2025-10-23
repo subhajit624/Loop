@@ -15,6 +15,11 @@ import Notification from './pages/Notification';
 import CreateStatus from './pages/CreateStatus';
 import GetStatus from './pages/GetStatus';
 import AnotherUser from './pages/AnotherUser';
+import GetImages from './pages/GetImages';
+import GetVideo from './pages/GetVideo';
+import Search from './pages/Search';
+
+
 
 function App() {
   const { authUser, loading, BgColor, TxtColor } = useContext(UserInfo);
@@ -54,6 +59,9 @@ function App() {
         </Route>
 
         <Route path="/anotherUser/:anotherUserId" element={<AnotherUser />} />
+        <Route path='/search' element={<Search />}/>
+        <Route path="/getImages/:postId" element={<GetImages />} />
+        <Route path="/getVideo/:postId" element={<GetVideo />} />
         <Route path="/getStatus/:statusId" element={<GetStatus />} />
         <Route path="/login" element={authUser ? <Navigate to="/" /> : <SignIn />} />
         <Route path="/register" element={authUser ? <Navigate to="/" /> : <Register />} />
