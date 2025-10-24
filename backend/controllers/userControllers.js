@@ -62,8 +62,7 @@ export const changeBio = async(req , res) => {
 
 export const getAllLoggedInUsers = async(req, res) => {
     try {
-        const loggedInUserId = req.user._id;
-        const users = await User.find({ _id: { $ne: loggedInUserId } }).select('-password');
+        const users = await User.find({}).select('-password');
         res.status(200).json({message: "fetched all user successfully", users });
     } catch (error) {
         console.log("Error in getAllLoggedInUsers controller:", error);

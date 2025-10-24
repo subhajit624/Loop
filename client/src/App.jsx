@@ -18,6 +18,7 @@ import AnotherUser from './pages/AnotherUser';
 import GetImages from './pages/GetImages';
 import GetVideo from './pages/GetVideo';
 import Search from './pages/Search';
+import Conversation from './pages/Conversation';
 
 
 
@@ -58,6 +59,7 @@ function App() {
           <Route path="/status/upload" element={authUser ? <CreateStatus /> : <Navigate to="/" />} />
         </Route>
 
+         <Route path="/conversation/:anotherUserId" element={<Conversation />} />
         <Route path="/anotherUser/:anotherUserId" element={<AnotherUser />} />
         <Route path='/search' element={<Search />}/>
         <Route path="/getImages/:postId" element={<GetImages />} />

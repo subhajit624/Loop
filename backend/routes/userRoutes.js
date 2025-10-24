@@ -10,7 +10,7 @@ const upload = multer({ storage });
 
 router.put('/changeAvatar',protectedRoutes,upload.single('image') ,changeAvatar);
 router.put('/changeBio', protectedRoutes, changeBio);
-router.get('/getAllLoggedInUsers', protectedRoutes, getAllLoggedInUsers);
+router.get('/getAllLoggedInUsers', getAllLoggedInUsers);
 router.get('/me', protectedRoutes, loginUserdata);
 
 export default router;
