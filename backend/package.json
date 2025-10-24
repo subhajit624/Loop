@@ -23,6 +23,7 @@
     "mongoose": "^8.19.1",
     "multer": "^2.0.2",
     "nanoid": "^5.1.6",
+    "node-fetch": "^3.3.2",
     "streamifier": "^0.1.1"
   }
 }
