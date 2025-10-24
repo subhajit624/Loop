@@ -32,7 +32,7 @@ const CreateStatus = () => {
   const handleUpload = async () => {
     if (!file) return toast.error("Select a file first!");
     setUploading(true);
-    toast("Upload has been disabled by admin", { icon: null });    //this part remove later  //start
+    toast("Upload status section is disabled by admin", { icon: null });    //this part remove later  //start
     navigate('/');
     return;   //end
 

@@ -52,6 +52,10 @@ const Create = () => {
     if (files.length === 0) return toast.error("Select files first");
     setUploading(true);
 
+    toast("Upload section is disabled by admin", { icon: null });    //this part remove later  //start
+    navigate('/');
+    return;   //end
+
     try {
       const formData = new FormData();
       if (tab === "video") {
