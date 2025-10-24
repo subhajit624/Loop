@@ -47,6 +47,10 @@ export const login = async(req, res) => {
         if(!existingUser){
             return res.status(404).json({message: "You don't have an account, please register"});
         }
+        if(!existingUser.password){
+          return res.status(400).json({
+          message: "Please login your account using Google"});
+        }
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
         if(!isPasswordCorrect){
             return res.status(400).json({message: "password is incorrect"});
