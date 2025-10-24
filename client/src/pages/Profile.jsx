@@ -42,7 +42,6 @@ const Profile = () => {
         setSavedPosts(savedRes.data.savedPosts.map((p) => p.post) || []);
       } catch (err) {
         console.log("Error fetching profile data:", err);
-        toast.error("Failed to fetch profile data");
       } finally {
         setLoading(false);
       }
