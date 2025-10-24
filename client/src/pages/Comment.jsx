@@ -162,23 +162,6 @@ const Comment = ({ postId, onClose }) => {
                     "Send"
                   )}
                 </button>
-
-                {/* AI Button with Spinner */}
-                <button
-                  onClick={airesponse}
-                  disabled={aiLoading}
-                  className="flex items-center justify-center"
-                >
-                  {aiLoading ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400"></div>
-                  ) : (
-                    <img
-                      src={logo1}
-                      className="h-6 w-6 cursor-pointer"
-                      alt="AI"
-                    />
-                  )}
-                </button>
               </div>
             )}
           </>
