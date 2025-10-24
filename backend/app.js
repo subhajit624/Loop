@@ -15,7 +15,8 @@ import statusRoutes from './routes/statusRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import conversationRoutes from './routes/conversationRoutes.js';
-import anotherUserRoutes from './routes/anotherUserRoutes.js'
+import anotherUserRoutes from './routes/anotherUserRoutes.js';
+import aiResponseRoutes from './routes/aiRoutes.js';
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use('/api/user',userRoutes);
 app.use('/api/message',messageRoutes);
 app.use('/api/conversation',conversationRoutes);
 app.use('/api/anotherUser',anotherUserRoutes);
+app.use('/api/ai',aiResponseRoutes);
 
 
 

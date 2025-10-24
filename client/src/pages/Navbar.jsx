@@ -49,7 +49,7 @@ const Navbar = () => {
         {/* Left: Logo */}
         <div className="flex items-center gap-2">
           <img
-            src="/social.png"
+            src="/social.jpg"
             alt="App Logo"
             className="w-8 h-8 rounded-full object-cover"
           />
