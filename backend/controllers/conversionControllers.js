@@ -7,7 +7,7 @@ export const getOrCreateConversation = async (req, res) => {
     const { receiverId } = req.params;
     let conversation = await Conversation.findOne({
       participants: { $all: [senderId, receiverId] },
-    }).populate({
+    }).populate("participants", "username avatar").populate({
       path: "messages",
       options: { sort: { createdAt: 1 } }, 
       populate: { path: "sender receiver", select: "username avatar" },

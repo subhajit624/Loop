@@ -52,14 +52,14 @@ function App() {
           <Route path="/" element={<Front />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/reels" element={<Reels />} />
-          <Route path="/messages" element={<Messages />} />
+          <Route path="/messages" element={authUser ? <Messages /> : <Navigate to="/login" />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<Create />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/status/upload" element={authUser ? <CreateStatus /> : <Navigate to="/" />} />
         </Route>
 
-         <Route path="/conversation/:anotherUserId" element={<Conversation />} />
+        <Route path="/conversation/:anotherUserId" element={authUser ? <Conversation /> : <Navigate to="/login" />} />
         <Route path="/anotherUser/:anotherUserId" element={<AnotherUser />} />
         <Route path='/search' element={<Search />}/>
         <Route path="/getImages/:postId" element={<GetImages />} />
