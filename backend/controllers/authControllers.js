@@ -105,14 +105,18 @@ export const loginwithgoogle = async(req,res) => {
 
 
 export const logout = (req, res) => {
-   try {
-        res.cookie("token", "", { maxAge: 0 });
-		res.status(200).json({ message: "Logged out successfully" });
-   } catch (error) {
-        console.log("error occur in logout controller", error);
-        res.status(500).json({ message: "Internal server error in logout" });
-   }
-}
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.log("error occur in logout controller", error);
+    res.status(500).json({ message: "Internal server error in logout" });
+  }
+};
 
 
 
