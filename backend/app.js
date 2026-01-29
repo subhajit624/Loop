@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config({});
+import http from "http";
+import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./db/connect.js";
@@ -51,10 +53,25 @@ app.use('/api/ai',aiResponseRoutes);
 
 const PORT = process.env.PORT || 5000;
 
+//create server for socket.io
+const server = http.createServer(app);
+
+//attach socket.io to the server
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}
+})
+
+io.on("connection", (socket) => {
+  console.log("New client connected: ", socket.id);
+});
+
 // Connect to the database
 connectDB();
 
 // Start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
