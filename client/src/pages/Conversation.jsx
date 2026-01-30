@@ -37,9 +37,6 @@ const Conversation = () => {
     }
   };
 
-  useEffect(() => {
-    fetchConversation();
-  }, [anotherUserId]);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -71,6 +68,10 @@ const Conversation = () => {
       console.log("Error sending message:", error);
     }
   };
+
+  useEffect(() => {
+    fetchConversation();
+  }, [handleSend]);
 
   if (loading) {
     return (
