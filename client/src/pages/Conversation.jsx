@@ -1,8 +1,9 @@
 import { UserInfo } from "@/context/AuthContext";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft, FaPaperPlane, FaRegImage, FaTimes } from "react-icons/fa";
+import { io } from "socket.io-client";
 
 const Conversation = () => {
   const { anotherUserId } = useParams();
@@ -11,12 +12,46 @@ const Conversation = () => {
   const [conversation, setConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [anotherUser, setAnotherUser] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const scrollRef = useRef(null);
   const navigate = useNavigate();
+
+  // Create socket only once
+  const socket = useMemo(() => {
+    return io(import.meta.env.VITE_BACKEND_URL, {
+      withCredentials: true,
+      transports: ["websocket"],
+    });
+  }, []);
+
+  // SOCKET LOGIC
+  useEffect(() => {
+    if (!socket || !authUser?._id) return;
+
+    const onConnect = () => {
+      socket.emit("userOnline", authUser._id);
+    };
+
+    const onOnlineUsers = (users) => {
+      setOnlineUsers(users);
+    };
+
+    socket.on("connect", onConnect);
+    socket.on("onlineUsers", onOnlineUsers);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("onlineUsers", onOnlineUsers);
+      socket.disconnect();
+    };
+  }, [socket, authUser]);
+
+  //another user online status
+  const isOnline = onlineUsers.includes(anotherUserId);
 
   // Fetch conversation
   const fetchConversation = async () => {
@@ -91,11 +126,23 @@ const Conversation = () => {
 
         {anotherUser && (
           <div className="flex items-center gap-3">
-            <img src={anotherUser.avatar} alt={anotherUser.username} className="w-10 h-10 rounded-full object-cover" />
-            <span className="font-semibold text-lg">{anotherUser.username}</span>
+            <div className="relative">
+              <img
+                src={anotherUser.avatar}
+                alt={anotherUser.username}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              {isOnline && (
+                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+              )}
+            </div>
+            <div className="flex flex-col leading-tight">
+              <span className="font-semibold text-lg">{anotherUser.username}</span>
+              {isOnline && <span className="text-xs text-green-500">Online</span>}
+            </div>
           </div>
-        )}
-      </div>
+          )}
+        </div>
 
       {/* Messages */}
       <div ref={scrollRef} className={`flex-1 overflow-y-auto px-2 sm:px-5 py-4 w-full max-w-2xl space-y-4`}>

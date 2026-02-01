@@ -64,6 +64,33 @@ const io = new Server(server, {
 }
 })
 
+let onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("userOnline", (userId) => {
+    onlineUsers.set(userId, socket.id);
+
+    // 🔥 SEND UPDATED LIST TO EVERYONE
+    io.emit("onlineUsers", Array.from(onlineUsers.keys()));
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+
+    for (let [userId, socketId] of onlineUsers.entries()) {
+      if (socketId === socket.id) {
+        onlineUsers.delete(userId);
+        break;
+      }
+    }
+
+    // 🔥 SEND UPDATED LIST AGAIN BECAUSE IF SOMEONE OFFLINE
+    io.emit("onlineUsers", Array.from(onlineUsers.keys()));
+  });
+});
+
 
 // Connect to the database
 connectDB();
