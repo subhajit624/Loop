@@ -34,6 +34,9 @@ app.use(cookieParser());
 
 
 // routes
+app.get('/', (req, res) => {
+    res.json({'test': 'Welcome to the Social Media test API'});
+});
 app.use('/api/frontend',userRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/post',postRoutes);
