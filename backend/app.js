@@ -23,10 +23,23 @@ import aiResponseRoutes from './routes/aiRoutes.js';
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+    "https://loop-xm4t.onrender.com", // 🔥 hardcoded
+    process.env.FRONTEND_URL        // 🔥 from env
+];
+
 app.use(cors({
-    origin: `${process.env.FRONTEND_URL}`,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS not allowed"));
+        }
+    },
     credentials: true
 }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
